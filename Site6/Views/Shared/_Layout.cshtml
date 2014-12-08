@@ -33,22 +33,7 @@
                 @RenderBody()
             </section>
         </div>
-        <div id="sboku hrenb" style="background-color: rgba(60, 50, 200, 0.2);" class="float-right">
-
-            @foreach (var item in ViewBag.Last.PostList)
-            {
-                <a href="\Home\PostView\@item.Id">@item.Name</a>
-                <br />
-            }
-        </div>
-        <div id="sboku hrenb2" style="background-color: rgba(60, 50, 200, 0.2);" class="float-left">
-
-            @foreach (var item in ViewBag.Last.CommentList)
-            {
-                <a href="\Home\PostView\@item.PostId">@item.Text</a>
-                <br />
-            }
-        </div>
+        
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">

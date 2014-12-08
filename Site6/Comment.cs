@@ -17,8 +17,8 @@ namespace Site6.Models
     {
         public int Id { get; set; }
         public int PostId { get; set; }
+        [Display(Name="Текст сообщения")]
         public string UserName { get; set; }
-        [Display(Name = "Текст")]
         public string Text { get; set; }
         public System.DateTime Date { get; set; }
     

@@ -11,22 +11,27 @@ using PagedList;
 
 namespace Site6.Controllers
 {
+       
     [Authorize]
     public class HomeController : Controller
     {
         dbEntities db = new dbEntities();
 
-        public class Three {
-            public Three(){
-            
+        public class Three
+        {
+            public Three()
+            {
+
             }
-            public Three(dbEntities baza){
+            public Three(dbEntities baza)
+            {
                 CommentList = baza.Comment.OrderBy(s => s.Date).AsEnumerable().Skip(baza.Comment.Count() - 3);
                 PostList = baza.Post.OrderBy(s => s.Date).AsEnumerable().Skip(baza.Post.Count() - 3);
             }
             public IEnumerable<Site6.Models.Post> PostList;
             public IEnumerable<Site6.Models.Comment> CommentList;
         }
+
         public Three last;
         
         

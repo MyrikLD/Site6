@@ -294,7 +294,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
-    <None Include="Properties\PublishProfiles\sdf.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -351,10 +350,11 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\PostsView.cshtml" />
     <Content Include="Views\Home\PostView.cshtml" />
-    <Content Include="Views\Home\PostPost.cshtml" />
+    <Content Include="Views\Home\Lasts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

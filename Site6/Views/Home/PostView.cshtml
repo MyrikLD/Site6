@@ -32,10 +32,14 @@
             <p>@item.Text</p>
 
             <p>Добавил(а) <b>@item.UserName</b>. Дата: @item.Date</p>
-            @if (User.Identity.Name == "Admin" || User.Identity.Name == item.UserName)
+            @if (User.Identity.Name.Equals("Admin") || User.Identity.Name.Equals(item.UserName))
             {
                 @Html.ActionLink("Delete", "DeleteComment", new { Id = item.Id })
             }
         </div>
     }
+</div>
+
+<div class="float-right">
+    @Html.Partial("Lasts")
 </div>
