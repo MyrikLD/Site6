@@ -2,11 +2,14 @@
 @{
     ViewBag.Title = "PostView";
 }
-
-<h2>@ViewBag.Post.Name</h2>
+<div style ="background-color: rgba(60, 50, 200, 0.2); padding: 10px; margin: 5px;">
+    <h1 style="margin:0px;">@ViewBag.Post.Name</h1>
+    <div style="padding: 10px;">
+        <p>@ViewBag.Post.Text</p>
+        <p>Добавлено: @ViewBag.Post.Date </p>
+    </div>
+</div>
 <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
-    <p>@ViewBag.Post.Text</p>
-    <p>Добавлено: @ViewBag.Post.Date </p>
     @if (User.Identity.IsAuthenticated)
     {
         using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
@@ -26,12 +29,13 @@
     @foreach (var item in @ViewBag.Post.Comment)
     {
         <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
-        <p>@item.Text</p>
-        
-        <p>Добавил(а) <b>@item.UserName</b>. Дата: @item.Date</p>
-        @if(User.Identity.Name=="Admin" || User.Identity.Name == item.UserName){
-            @Html.ActionLink("Delete", "DeleteComment", new { Id = item.Id })
-        }
-    </div>
+            <p>@item.Text</p>
+
+            <p>Добавил(а) <b>@item.UserName</b>. Дата: @item.Date</p>
+            @if (User.Identity.Name == "Admin" || User.Identity.Name == item.UserName)
+            {
+                @Html.ActionLink("Delete", "DeleteComment", new { Id = item.Id })
+            }
+        </div>
     }
 </div>

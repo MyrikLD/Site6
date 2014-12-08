@@ -1,39 +1,52 @@
-﻿@model Site6.Models.Post
+﻿@model Site6.Controllers.HomeController.myclass
+@*@model Site6.Models.Post*@
+@using PagedList.Mvc
 @{
     ViewBag.Title = "PostsView";
 }
-
+<link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 <h3>Все записи</h3>
-@if (User.Identity.Name == "Admin") { 
+@if (User.Identity.Name == "Admin")
+{
     using (Html.BeginForm("AddPost", "Home", FormMethod.Post))
     {
         <fieldset>
             <legend>Добавить запись</legend>
             <p>
-                @Html.LabelFor(Model => Model.Name)
-                @Html.TextBoxFor(Model => Model.Name)
+                @Html.LabelFor(m => m.PostModel.Name)
+                @Html.TextBoxFor(m => m.PostModel.Name)
                 <br />
-                @Html.LabelFor(Model => Model.Text)
-                @Html.TextAreaFor(Model => Model.Text)
+                @Html.LabelFor(m => m.PostModel.Text)
+                @Html.TextAreaFor(m => m.PostModel.Text)
             </p>
-            <br />
             <input type="submit" value="Отправить" />
         </fieldset>
     }
 }
+@Html.Partial("PostPost")
 
-@foreach (var item in @ViewBag.Posts)
+@foreach (var item in Model.PostPagedList)
 {
     <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
-        <h1>@item.Name</h1>
-        <p>@item.Text</p>
-
-        <p>Добавлено: @item.Date</p>
-        @Html.ActionLink("Подробно", "PostView", new { Id = @item.Id })
+        @Html.ActionLink(item.Name, "PostView", new { Id = @item.Id }, new{style = "font-size: xx-large;"})
+        
         @if (User.Identity.Name == "Admin")
         {
             @Html.ActionLink("Delete", "DeletePost", new { Id = @item.Id })
         }
-    </div>
 
+        <p>Добавлено: @item.Date</p>
+    </div>
+}
+@if (Model.PostList.Count() > 9) { 
+<div style="text-align: center;">
+        @Html.PagedListPager(Model.PostPagedList, page => Url.Action("PostsView", new { page }),
+            new PagedListRenderOptions
+            {
+                LinkToFirstPageFormat = "<<",
+                LinkToPreviousPageFormat = "Назад",
+                LinkToNextPageFormat = "Вперед",
+                LinkToLastPageFormat = ">>"
+            })
+</div>
 }

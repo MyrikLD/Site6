@@ -7,37 +7,52 @@ using System.Web.Mvc;
 using Site6.Models;
 using Site6;
 
+using PagedList;
+
 namespace Site6.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
         dbEntities db = new dbEntities();
-        public IEnumerable<Site6.Models.Comment> Comments;
-        public Site6.Models.Post mod;
+        public class myclass{
+            public IEnumerable<Site6.Models.Post> PostList;
+            public PagedList.IPagedList<Site6.Models.Post> PostPagedList;
+            public Models.Post PostModel;
+        }
 
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var FirstPost = db.Post.First();
-            return View(FirstPost);
+            IEnumerable<Site6.Models.Post> Posts = db.Post;
+            var LastPost = Posts.Last();
+            return View(LastPost);
         }
 
         [AllowAnonymous]
         public ActionResult PostView(int Id)
         {
             ViewBag.Post = db.Post.Find(Id);
-            ViewBag.Comments = Comments;
+            ViewBag.Comments = db.Comment;
             var Comment = new Models.Comment();
             return View(Comment);
         }
 
         [AllowAnonymous]
-        public ActionResult PostsView()
+        public ActionResult PostsView(int? page)
         {
-            ViewBag.Posts = db.Post;
-            var post = new Models.Post();
-            return View(post);
+            int pagenum = page ?? 1;
+            int size = 10;
+            var model = db.Post.ToList();
+
+            myclass cl = new myclass();
+
+            cl.PostModel = new Models.Post();
+            cl.PostPagedList = db.Post.OrderByDescending(s => s.Date).ToPagedList(pagenum, size);
+            cl.PostList = db.Post;
+
+            
+            return View(cl);
         }
 
         [HttpPost]
