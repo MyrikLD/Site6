@@ -12,7 +12,7 @@
         <h4>Последние сообщения</h4>
         @foreach (var item in Model.CommentList)
         {
-            if (item.Text.Length > 10)
+            if (item.Text.Length > 15)
             {
                 <a href="\Home\PostView\@item.PostId">@String.Concat(@item.Text.Take(15))...</a>
             }
