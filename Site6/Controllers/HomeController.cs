@@ -15,7 +15,22 @@ namespace Site6.Controllers
     public class HomeController : Controller
     {
         dbEntities db = new dbEntities();
-        public class myclass{
+
+        public class Three {
+            public Three(){
+            
+            }
+            public Three(dbEntities baza){
+                CommentList = baza.Comment.OrderBy(s => s.Date).AsEnumerable().Skip(baza.Comment.Count() - 3);
+                PostList = baza.Post.OrderBy(s => s.Date).AsEnumerable().Skip(baza.Post.Count() - 3);
+            }
+            public IEnumerable<Site6.Models.Post> PostList;
+            public IEnumerable<Site6.Models.Comment> CommentList;
+        }
+        public Three last;
+        
+        
+        public class myclass {
             public IEnumerable<Site6.Models.Post> PostList;
             public PagedList.IPagedList<Site6.Models.Post> PostPagedList;
             public Models.Post PostModel;
@@ -24,6 +39,9 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            last = new Three(db);
+            ViewBag.Last = last;
+
             IEnumerable<Site6.Models.Post> Posts = db.Post;
             var LastPost = Posts.Last();
             return View(LastPost);
@@ -32,6 +50,9 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult PostView(int Id)
         {
+            last = new Three(db);
+            ViewBag.Last = last;
+
             ViewBag.Post = db.Post.Find(Id);
             ViewBag.Comments = db.Comment;
             var Comment = new Models.Comment();
@@ -39,8 +60,11 @@ namespace Site6.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult PostsView(int? page)
+        public ActionResult PostsView(int? page, string searchString)
         {
+            last = new Three(db);
+            ViewBag.Last = last;
+
             int pagenum = page ?? 1;
             int size = 10;
             var model = db.Post.ToList();
@@ -48,9 +72,15 @@ namespace Site6.Controllers
             myclass cl = new myclass();
 
             cl.PostModel = new Models.Post();
-            cl.PostPagedList = db.Post.OrderByDescending(s => s.Date).ToPagedList(pagenum, size);
-            cl.PostList = db.Post;
-
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                cl.PostPagedList = db.Post.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())).OrderByDescending(s => s.Date).ToPagedList(pagenum, size);
+                cl.PostList = db.Post.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper()));
+            }
+            else {
+                cl.PostPagedList = db.Post.OrderByDescending(s => s.Date).ToPagedList(pagenum, size);
+                cl.PostList = db.Post;
+            }
             
             return View(cl);
         }
@@ -98,6 +128,9 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
+            last = new Three(db);
+            ViewBag.Last = last;
+
             ViewBag.Message = "Your app description page.";
 
             return View();
@@ -106,6 +139,8 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult Contact()
         {
+            last = new Three(db);
+            ViewBag.Last = last; 
             ViewBag.Message = "Your contact page.";
 
             return View();

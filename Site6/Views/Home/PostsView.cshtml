@@ -5,6 +5,17 @@
     ViewBag.Title = "PostsView";
 }
 <link href="@Url.Content("/Content/PagedList.css")" rel="stylesheet" type="text/css" />
+
+    @using (Html.BeginForm())
+    {
+        <div class="float-right">
+            <p>
+                Find by name: @Html.TextBox("SearchString")
+                <input type="submit" value="Search" />
+            </p>
+        </div>
+    }
+
 <h3>Все записи</h3>
 @if (User.Identity.Name == "Admin")
 {
