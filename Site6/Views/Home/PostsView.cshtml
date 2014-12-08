@@ -1,0 +1,39 @@
+﻿@model Site6.Models.Post
+@{
+    ViewBag.Title = "PostsView";
+}
+
+<h3>Все записи</h3>
+@if (User.Identity.Name == "Admin") { 
+    using (Html.BeginForm("AddPost", "Home", FormMethod.Post))
+    {
+        <fieldset>
+            <legend>Добавить запись</legend>
+            <p>
+                @Html.LabelFor(Model => Model.Name)
+                @Html.TextBoxFor(Model => Model.Name)
+                <br />
+                @Html.LabelFor(Model => Model.Text)
+                @Html.TextAreaFor(Model => Model.Text)
+            </p>
+            <br />
+            <input type="submit" value="Отправить" />
+        </fieldset>
+    }
+}
+
+@foreach (var item in @ViewBag.Posts)
+{
+    <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
+        <h1>@item.Name</h1>
+        <p>@item.Text</p>
+
+        <p>Добавлено: @item.Date</p>
+        @Html.ActionLink("Подробно", "PostView", new { Id = @item.Id })
+        @if (User.Identity.Name == "Admin")
+        {
+            @Html.ActionLink("Delete", "DeletePost", new { Id = @item.Id })
+        }
+    </div>
+
+}
