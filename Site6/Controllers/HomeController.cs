@@ -44,12 +44,17 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            last = new Three(db);
-            ViewBag.Last = last;
-
             IEnumerable<Site6.Models.Post> Posts = db.Post;
             var LastPost = Posts.Last();
             return View(LastPost);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Lasts()
+        {
+            last = new Three(db);
+            ViewBag.Last = last;
+            return PartialView(last);
         }
 
         [AllowAnonymous]

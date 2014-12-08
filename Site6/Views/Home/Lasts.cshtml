@@ -1,7 +1,8 @@
-﻿<div style="background-color: rgba(60, 50, 200, 0.2); padding: 10px; margin: 0px; width: 180px;">
+﻿@model Site6.Controllers.HomeController.Three
+<div style="background-color: rgba(60, 50, 200, 0.2); padding: 10px; margin: 0px; width: 180px;">
     <div id="sboku hrenb">
         <h4 style="margin:0px;">Последние блоги</h4>
-        @foreach (var item in ViewBag.Last.PostList)
+        @foreach (var item in Model.PostList)
         {
             <a href="\Home\PostView\@item.Id">@item.Name</a>
             <br />
@@ -9,9 +10,15 @@
     </div>
     <div id="sboku hrenb2">
         <h4>Последние сообщения</h4>
-        @foreach (var item in ViewBag.Last.CommentList)
+        @foreach (var item in Model.CommentList)
         {
-            <a href="\Home\PostView\@item.PostId">@item.Text</a>
+            if (item.Text.Length > 10)
+            {
+                <a href="\Home\PostView\@item.PostId">@String.Concat(@item.Text.Take(15))...</a>
+            }
+            else { 
+                <a href="\Home\PostView\@item.PostId">@item.Text</a>
+            }
             <br />
         }
     </div>
