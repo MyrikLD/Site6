@@ -60,9 +60,6 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult PostView(int Id)
         {
-            last = new Three(db);
-            ViewBag.Last = last;
-
             ViewBag.Post = db.Post.Find(Id);
             ViewBag.Comments = db.Comment;
             var Comment = new Models.Comment();
@@ -72,9 +69,6 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult PostsView(int? page, string searchString)
         {
-            last = new Three(db);
-            ViewBag.Last = last;
-
             int pagenum = page ?? 1;
             int size = 10;
             var model = db.Post.ToList();
@@ -138,9 +132,6 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
-            last = new Three(db);
-            ViewBag.Last = last;
-
             ViewBag.Message = "Your app description page.";
 
             return View();
@@ -148,11 +139,8 @@ namespace Site6.Controllers
 
         [AllowAnonymous]
         public ActionResult Contact()
-        {
-            last = new Three(db);
-            ViewBag.Last = last; 
+        { 
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
