@@ -18,7 +18,7 @@
                 <legend>Добавить запись</legend>
                 <input name="PostId" value="@ViewBag.Post.Id" hidden>
                 <p>
-                    @Html.LabelFor(Model => Model.Text)
+                    @Html.LabelFor(Model => Model.Text)<br />
                     @Html.TextAreaFor(Model => Model.Text)
                 </p>
                 <br />

@@ -16,22 +16,16 @@
 
     <fieldset>
         <legend>Форма входа</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
+                @Html.LabelFor(m => m.UserName)<br />
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
+        <br />
+                @Html.LabelFor(m => m.Password)<br />
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
+        <br />
                 @Html.CheckBoxFor(m => m.RememberMe)
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-            </li>
-        </ol>
         <input type="submit" value="Выполнить вход" />
     </fieldset>
     <p>

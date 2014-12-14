@@ -24,11 +24,11 @@
         <fieldset>
             <legend>Добавить запись</legend>
             <p>
-                @Html.LabelFor(m => m.PostModel.Name)
+                @Html.LabelFor(m => m.PostModel.Name)<br />
                 @Html.TextBoxFor(m => m.PostModel.Name)
                 <br />
-                @Html.LabelFor(m => m.PostModel.Text)
-                @Html.TextAreaFor(m => m.PostModel.Text)
+                @Html.LabelFor(m => m.PostModel.Text)<br />
+                @Html.TextAreaFor(m => m.PostModel.Text,5,40,null)
             </p>
             <input type="submit" value="Отправить" />
         </fieldset>
@@ -37,7 +37,7 @@
 
 @foreach (var item in Model.PostPagedList)
 {
-    <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
+    <div style="background-color: rgba(60, 50, 200, 0.2); padding: 8px; margin: 5px;">
         @Html.ActionLink(item.Name, "PostView", new { Id = @item.Id }, new{style = "font-size: xx-large;"})
         
         @if (User.Identity.Name == "Admin")
@@ -45,11 +45,11 @@
             @Html.ActionLink("Delete", "DeletePost", new { Id = @item.Id })
         }
 
-        <p>Добавлено: @item.Date</p>
+        <p style="margin:5px;">Добавлено: @item.Date</p>
     </div>
 }
 @if (Model.PostList.Count() > 9) { 
-<div style="text-align: center;">
+<div id="Pager" style="text-align: center;">
         @Html.PagedListPager(Model.PostPagedList, page => Url.Action("PostsView", new { page }),
             new PagedListRenderOptions
             {

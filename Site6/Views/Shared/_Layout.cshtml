@@ -1,48 +1,66 @@
-﻿<!DOCTYPE html>
-@using Site6.Controllers
-<html lang="ru">
-    <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title — приложение ASP.NET MVC</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                            <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                            <li>@Html.ActionLink("Контакт", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title — приложение ASP.NET MVC</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div id="container">
+        <!-- header -->
+        <div id="header">
+            <div id="logo"><a href="#">Website Name</a></div>
+            <div id="slogan">
+                Your extremely cool &amp; catchy slogan<br />that will
+                fascinate people.
             </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
         </div>
-        @Html.Action("Lasts", "Home")
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year — год сдачи сайта</p>
+        <div id="header_menu">
+            @Html.ActionLink("Домашняя страница", "Index", "Home")
+            &nbsp; | &nbsp;
+            @Html.ActionLink("О программе", "About", "Home")
+            &nbsp; | &nbsp;
+            @Html.ActionLink("Контакт", "Contact", "Home")
+         </div>
+                <!--end header -->
+                <!-- main -->
+                <div id="main">
+                    <div id="sidebar">
+                        <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
+                            <h4 style="margin:10px;">@Html.Partial("_LoginPartial")</h4>
+                        </div>
+                        <div style="background-color: rgba(60, 50, 200, 0.2); padding: 3px; margin: 5px;">
+                            @Html.Action("Lasts", "Home")
+                        </div>
+                    </div>
+                    <div id="text">
+                        @RenderSection("featured", required: false)
+                        <section>
+                            @RenderBody()
+                        </section>
+                    </div>
                 </div>
-            </div>
-        </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+                <!-- end main -->
+                <!-- footer -->
+                <div id="footer_menu">
+                    @Html.ActionLink("Домашняя страница", "Index", "Home")
+                    &nbsp; | &nbsp;
+                    @Html.ActionLink("О программе", "About", "Home")
+                    &nbsp; | &nbsp;
+                    @Html.ActionLink("Контакт", "Contact", "Home")
+                    <div id="footer">
+                        Copyright 2009 Your Website.
+                        <!-- Please do not change or delete this link. Read the license! Thanks. :-) -->
+                        Design by
+                        <a href="http://www.ondieting.com/">On Dieting</a>.
+                    </div>
+                    <!-- end footer -->
+                </div>
+                @Scripts.Render("~/bundles/jquery")
+                @RenderSection("scripts", required: false)
+</body>
 </html>

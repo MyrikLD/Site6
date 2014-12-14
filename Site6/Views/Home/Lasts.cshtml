@@ -1,25 +1,20 @@
 ﻿@model Site6.Controllers.HomeController.Three
-<div style="background-color: rgba(60, 50, 200, 0.2); padding: 10px; margin: 0px; width: 180px;">
-    <div id="sboku hrenb">
-        <h4 style="margin:0px;">Последние блоги</h4>
-        @foreach (var item in Model.PostList)
-        {
-            <a href="\Home\PostView\@item.Id">@item.Name</a>
-            <br />
+        <h3>Последние блоги</h3>
+        <ul>
+        @foreach (var item in Model.PostList){
+            <li>
+                @Html.ActionLink(@item.Name, "PostView", "Home", new { Id = @item.Id }, null)
+            </li>
         }
-    </div>
-    <div id="sboku hrenb2">
-        <h4>Последние сообщения</h4>
-        @foreach (var item in Model.CommentList)
-        {
-            if (item.Text.Length > 15)
-            {
-                <a href="\Home\PostView\@item.PostId">@String.Concat(@item.Text.Take(15))...</a>
+        </ul>
+        <br />
+        <h3>Последние сообщения</h3>
+        @foreach (var item in Model.CommentList){
+            <li>
+            @if (item.Text.Length > 15){
+                @Html.ActionLink(@String.Concat(@item.Text.Take(15)) + "...", "PostView", "Home", new { Id = @item.PostId }, null)
+            } else {
+                @Html.ActionLink(@item.Text, "PostView", "Home", new { Id = @item.PostId }, null)
             }
-            else { 
-                <a href="\Home\PostView\@item.PostId">@item.Text</a>
-            }
-            <br />
+            </li>
         }
-    </div>
-</div>
