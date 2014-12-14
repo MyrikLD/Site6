@@ -35,11 +35,6 @@
 }
 </section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Используйте для входа другую службу.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

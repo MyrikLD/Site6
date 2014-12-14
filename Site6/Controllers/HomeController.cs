@@ -60,8 +60,6 @@ namespace Site6.Controllers
         [AllowAnonymous]
         public ActionResult PostView(int Id)
         {
-            ViewBag.Post = db.Post.Find(Id);
-            ViewBag.Comments = db.Comment;
             var Comment = new Models.Comment();
             return View(Comment);
         }
